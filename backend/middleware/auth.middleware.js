@@ -7,7 +7,7 @@ const auth_middleware = (req, res, next)=>{
         }
         jwt.verify(token, 'masai', (err, decoded)=>{
             if(decoded.username){
-                res.user = {username:decoded.username, email:decoded.email};
+                res.user = {username:decoded.username, email:decoded.email, _id:decoded._id};
                 next();
             }else {
                 return res.status(401).send({error:'jwt token in not correct'});
@@ -18,3 +18,5 @@ const auth_middleware = (req, res, next)=>{
         return res.status(500).send({error:'internal server error'});
     }
 }
+
+module.exports = {auth_middleware}

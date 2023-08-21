@@ -33,10 +33,10 @@ const login_controller = async(req, res)=>{
         if(!email || !password){
             return res.status(400).send({error:'Please provide necessary credentials'})
         }
-        const {password:hash, username} = await UserModel.findOne({email});
+        const {password:hash, username, _id} = await UserModel.findOne({email});
         bcrypt.compare(password, hash, (error, result)=>{
             if(result){
-                const temp = jwt.sign({username, email}, 'masai', {expiresIn:'1d'})
+                const temp = jwt.sign({username, email, _id}, 'masai', {expiresIn:'1d'})
                 res.status(200).send({token:`Bearer ${temp}`})
             }else {
                 res.status(401).send({error:'credentials provided are not correct', msg:error.message})
