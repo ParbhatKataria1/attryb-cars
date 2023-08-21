@@ -3,12 +3,16 @@ const { connection } = require('./db');
 const app = express();
 const cors = require('cors');
 const { auth } = require('./routes/auth.route');
+const { oem } = require('./routes/oem.route');
 require('dotenv').config();
 
 app.use(express.json());
 app.use(cors("*"));
 
-app.use('/auth', auth)
+app.use('/auth', auth);
+app.use('/oem', oem);
+
+
 
 
 app.listen(process.env.port, async()=>{
