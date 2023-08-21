@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(cors("*"));
 
 app.use('/auth', auth);
-// app.use(auth_middleware);
+app.use(auth_middleware);
 app.use('/oem', oem);
 app.use('/inventory', inventory);
 

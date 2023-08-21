@@ -3,7 +3,7 @@ const { InventoryModel } = require("../model/inventory.model")
 
 const get_inventory = async(req, res)=>{
     try {
-        let {page = 1, limit = 8, color = "", min_price = 0, max_price = Infinity, min_mileage = 0, max_mileage = Infinity, sortvalue = 1, search = ""} = req.body;
+        let {page = 1, limit = 8, color = "", min_price = 0, max_price = Infinity, min_mileage = 0, max_mileage = Infinity, sortvalue = 1, search = ""} = req.query;
         search =  new RegExp(search, 'i');
         color = new RegExp(color, 'i')
         const length = await InventoryModel.count();
@@ -16,7 +16,7 @@ const get_inventory = async(req, res)=>{
 
 const post_inventory = async(req, res)=>{
     try {
-        const {title = '', image = '', scratches = '', odometer = '', registration_place = '', original_paint = '', description = '', reported_accident = '', previous_buyer = '', user = '', oem_spec = ''} = req.body;
+        const {title, image, scratches, odometer, registration_place, original_paint, description, reported_accident, previous_buyer, user, oem_spec} = req.body;
         if(!title || !image || !scratches || !odometer || !registration_place || !original_paint || !description || !reported_accident || !previous_buyer || !user || !oem_spec){
             return res.status(400).send({error:'please provide all the details'})
         }
@@ -32,8 +32,8 @@ const post_inventory = async(req, res)=>{
 
 const update_inventory = async(req, res)=>{
     try {
-        const {_id = '', user = ''} = req.body;
-        if(!_id){
+        const {_id , user} = req.query;
+        if(!_id || !user){
             return res.status(400).send({error:'Please provide the necessary data'});
         }
         if(user !=req.user?._id){
@@ -48,8 +48,8 @@ const update_inventory = async(req, res)=>{
 
 const delete_inventory = async(req, res)=>{
     try {
-        const {_id = '', user=''} = req.body;
-        if(!_id){
+        const {_id , user} = req.query;
+        if(!_id || !user){
             return res.status(400).send({error:'Please provide the necessary data'});
         }
         if(user !=req.user?._id){
