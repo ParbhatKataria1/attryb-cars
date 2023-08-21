@@ -1,6 +1,6 @@
 import axios, {AxiosResponse} from "axios";
 import { DATA, DATAERROR, DATALOADING } from "./actionType";
-import { FetchParamSchema, InventorySchema, ItemDataSchema, ItemErrorSchema, ItemLoadingSchema } from "../../Utils";
+import { AllDataSchema, FetchParamSchema, InventorySchema, ItemDataSchema, ItemErrorSchema, ItemLoadingSchema } from "../../Utils";
 import { AppDispatch } from "../store";
 
 export function create_loading():ItemLoadingSchema{
@@ -15,17 +15,17 @@ export function create_error():ItemErrorSchema{
     }
 }
 
-export function create_data(payload:InventorySchema[]):ItemDataSchema{
+export function create_data(payload:AllDataSchema):ItemDataSchema{
     return {
         type:DATA,
         payload
     }
 }
 
-export const fetch_data = (params:FetchParamSchema):any=>async(dispatch:AppDispatch)=>{
+export const fetch_data = (params:any):any=>async(dispatch:AppDispatch)=>{
     try {
         dispatch(create_loading());
-        const data:AxiosResponse<InventorySchema[]> = await axios.get(`${process.env.REACT_APP_URL}/inventory`, {
+        const data:AxiosResponse<AllDataSchema> = await axios.get(`http://localhost:4500/inventory`, {
             params
         })
         dispatch(create_data(data.data))

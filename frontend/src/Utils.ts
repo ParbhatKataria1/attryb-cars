@@ -44,7 +44,7 @@ export interface ItemErrorSchema{
 
 export interface ItemDataSchema{
     type:string,
-    payload:InventorySchema[]
+    payload:AllDataSchema
 }
 
 export interface FetchParamSchema{
@@ -61,7 +61,26 @@ export interface FetchParamSchema{
 export interface stateSchema{
     isLoading:boolean,
     isError:boolean,
+    user:String| Number,
+    length:String | Number,
+    data:InventorySchema[]
+}
+
+export interface AllDataSchema{
+    user:String| Number,
+    length:String | Number,
     data:InventorySchema[]
 }
 
 export type ItemActionSchema = ItemLoadingSchema | ItemErrorSchema | ItemDataSchema;
+
+export interface LoginSchema {
+    email:string,
+    password:string
+}
+
+export interface SigninSchema{
+    email:string,
+    password:string,
+    username:string
+}
