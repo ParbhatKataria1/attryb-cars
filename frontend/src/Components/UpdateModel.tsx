@@ -5,39 +5,34 @@ import {
   Select,
   Text,
   useToast,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
   FormControl,
   FormLabel,
   InputLeftAddon,
   InputRightAddon,
   Spinner,
+  useDisclosure,
   Button,
   Box,
 } from "@chakra-ui/react";
 import { useState, useRef } from "react";
-import { AddItemSchema } from "../Utils";
-import axios from "axios";
-import DescriptionBox from "../Components/Description";
-import OemModel from "../Components/OemModel";
+import { InventorySchema } from "../Utils";
+import axios, { AxiosResponse } from "axios";
+import DescriptionBox from "./Description";
+import OemModel from "./OemModel";
 
-
-const init:AddItemSchema = {
-  title:"",
-  image:"",
-  scratches:0,
-  odometer:0,
-  registration_place:"",
-  original_paint:"",
-  description:[],
-  reported_accident:0,
-  previous_buyer:0,
-  user:"",
-  oem_spec:"",
-}
-export default function Addfile() {
+export function UpdateModel(props: InventorySchema) {
   const token: string = JSON.parse(
     sessionStorage.getItem("login_cred") || ""
   )?.token;
-  const [item, setitem] = useState<AddItemSchema>({...init});
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [item, setitem] = useState<InventorySchema>({ ...props });
   const inputRef = useRef<any>();
   const [loading, setloading] = useState(false);
   const [load, setload] = useState(false);
@@ -64,8 +59,8 @@ export default function Addfile() {
     try {
       setloading(true);
       console.log(item);
-      await axios.post(
-        `http://localhost:4500/inventory`,
+      await axios.patch(
+        `http://localhost:4500/inventory?_id=${item._id}&user=${props.userId}`,
         { ...item },
         { headers: { Authorization: token } }
       );
@@ -104,8 +99,16 @@ export default function Addfile() {
   }
   return (
     <>
-      
-          <Box>
+      <Button size={"sm"} onClick={onOpen}>
+        Edit
+      </Button>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Update Details </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
             <FormControl w="100%" id="image">
               <FormLabel>Image</FormLabel>
               <InputGroup>
@@ -238,9 +241,12 @@ export default function Addfile() {
                 />
               </FormControl>
             </Flex>
-          </Box>
+          </ModalBody>
 
-          <Box>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Close
+            </Button>
             <Button onClick={submitUpdate} colorScheme="none" variant="outline">
               Done{" "}
               <Spinner
@@ -249,7 +255,9 @@ export default function Addfile() {
                 ml="10px"
               />
             </Button>
-          </Box>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 }

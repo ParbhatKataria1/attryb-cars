@@ -4,7 +4,7 @@ import { DATA, DATAERROR, DATALOADING } from "./actionType";
 const init:stateSchema = {
     isLoading:false, 
     isError:false,
-    user:"", 
+    userId:"", 
     length:"",
     data:[]
 }

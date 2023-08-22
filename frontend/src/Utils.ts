@@ -9,7 +9,7 @@ export interface ReactNodeSchema {
 }
 
 export interface OemSchema{
-    id:string,
+    _id:string,
     model:string,
     price:Number,
     color:String[],
@@ -20,7 +20,7 @@ export interface OemSchema{
 }
 
 export interface InventorySchema{
-    _id:string,
+    _id?:string,
     title:string,
     image:string,
     scratches:Number,
@@ -32,7 +32,21 @@ export interface InventorySchema{
     previous_buyer:Number,
     user:string,
     oem_spec:string,
-    oem:OemSchema[]
+    oem?:OemSchema[]
+}
+
+export interface AddItemSchema{
+    title:string,
+    image:string,
+    scratches:Number,
+    odometer:Number,
+    registration_place:string,
+    original_paint:string,
+    description:String[],
+    reported_accident:Number,
+    previous_buyer:Number,
+    user:string,
+    oem_spec:string,
 }
 export interface ItemLoadingSchema {
     type:string,
@@ -61,13 +75,13 @@ export interface FetchParamSchema{
 export interface stateSchema{
     isLoading:boolean,
     isError:boolean,
-    user:String| Number,
+    userId:String| Number,
     length:String | Number,
     data:InventorySchema[]
 }
 
 export interface AllDataSchema{
-    user:String| Number,
+    userId:String| Number,
     length:String | Number,
     data:InventorySchema[]
 }
@@ -83,4 +97,9 @@ export interface SigninSchema{
     email:string,
     password:string,
     username:string
+}
+
+export interface LoginCredSchema{
+    token:String, 
+    email:String
 }

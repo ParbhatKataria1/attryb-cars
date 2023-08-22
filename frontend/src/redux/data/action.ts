@@ -22,10 +22,10 @@ export function create_data(payload:AllDataSchema):ItemDataSchema{
     }
 }
 
-export const fetch_data = (params:any):any=>async(dispatch:AppDispatch)=>{
+export const fetch_data = (params:any, token:string):any=>async(dispatch:AppDispatch)=>{
     try {
         dispatch(create_loading());
-        const data:AxiosResponse<AllDataSchema> = await axios.get(`http://localhost:4500/inventory`, {
+        const data:AxiosResponse<AllDataSchema> = await axios.get(`http://localhost:4500/inventory`,{headers:{Authorization:token},
             params
         })
         dispatch(create_data(data.data))

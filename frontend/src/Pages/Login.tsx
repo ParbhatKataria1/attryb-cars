@@ -39,7 +39,7 @@ export default function Login() {
       const data:AxiosResponse<{token:string}> = await axios.post("http://localhost:4500/auth/login", {
         ...form,
       });
-      sessionStorage.setItem('login_cred', JSON.stringify({token:data.data.token, ...form}));
+      sessionStorage.setItem('login_cred', JSON.stringify({token:data.data.token, email:form.email}));
       setloading(false);
       Toast({
         title: "Success",

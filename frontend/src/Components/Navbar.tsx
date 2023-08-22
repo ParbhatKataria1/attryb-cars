@@ -1,7 +1,8 @@
+import { Box } from "@chakra-ui/react";
 import React from "react";
 
 const Navbar = () => {
-  return <div>Navbar</div>;
+  return <Box w='100vw'>this is the navbar of the page</Box>;
 };
 
 export default Navbar;
