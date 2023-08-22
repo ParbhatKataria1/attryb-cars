@@ -99,7 +99,7 @@ export function UpdateModel(props: InventorySchema) {
   }
   return (
     <>
-      <Button size={"sm"} onClick={onOpen}>
+      <Button  onClick={onOpen}>
         Edit
       </Button>
 

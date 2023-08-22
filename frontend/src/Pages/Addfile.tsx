@@ -21,7 +21,7 @@ import OemModel from "../Components/OemModel";
 
 
 const init:AddItemSchema = {
-  title:"",
+  title:"This is a new car",
   image:"",
   scratches:0,
   odometer:0,
@@ -63,7 +63,6 @@ export default function Addfile() {
   async function submitUpdate() {
     try {
       setloading(true);
-      console.log(item);
       await axios.post(
         `http://localhost:4500/inventory`,
         { ...item },
