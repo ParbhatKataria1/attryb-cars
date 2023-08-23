@@ -1,7 +1,7 @@
 # GearHead [Link](https://attryb-cars.netlify.app/)
 
 # Overview
- BuyCar is a website for selling second-hand cars.
+ GearHead is a website for selling second-hand cars.
  
 # Tech Stack :
  
