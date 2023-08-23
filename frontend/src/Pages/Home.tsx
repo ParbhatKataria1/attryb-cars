@@ -20,7 +20,6 @@ const Home = () => {
     mileageRange,
     setmileageRange,
     pagevalue,
-    setpage,
     color,
     setcolor,
     search,
@@ -82,7 +81,7 @@ const Home = () => {
           <Spin />
         </Flex>
       ) : (
-        <Data {...item} page={pagevalue} setpage={setpage} />
+        <Data {...item}  />
       )}
     </Flex>
   );

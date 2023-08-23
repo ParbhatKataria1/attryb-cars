@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { ReactNodeSchema, SessionSchema } from "../Utils";
+import { ReactNodeSchema } from "../Utils";
 import { Box } from "@chakra-ui/react";
 
 const PrivateRoute = ({ children }: ReactNodeSchema) => {
@@ -7,7 +7,6 @@ const PrivateRoute = ({ children }: ReactNodeSchema) => {
     const { token = "", email = "" } = JSON.parse(
       sessionStorage.getItem("login_cred") || ""
     );
-    console.log(token, email)
     if (!email || !token) {
       return <Navigate to="login" />;
     }

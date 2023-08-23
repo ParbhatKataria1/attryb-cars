@@ -9,7 +9,7 @@ const sign_controller = async (req, res)=>{
             return res.status(400).send({error:'Please provide necessary credentials'})
         }
         const user = await UserModel.find({email});
-        if(user.length){
+        if(user?.length){
             return res.status(409).send({error:'user already exists'})
         }
         bcrypt.hash(password, +process.env.salt_round, async(error, hash)=>{
@@ -33,7 +33,11 @@ const login_controller = async(req, res)=>{
         if(!email || !password){
             return res.status(400).send({error:'Please provide necessary credentials'})
         }
-        const {password:hash, username, _id} = await UserModel.findOne({email});
+        const temp = await UserModel.findOne({email});
+        if(!temp?.username){
+            return res.status(401).send({error:'Provided credentials are incorrect'});
+        }
+        const {password:hash = '', username='', _id = ''} = temp;
         bcrypt.compare(password, hash, (error, result)=>{
             if(result){
                 const temp = jwt.sign({username, email, _id}, 'masai', {expiresIn:'1d'})
@@ -43,7 +47,7 @@ const login_controller = async(req, res)=>{
             }
         })
     } catch (error) {
-        res.send(500).send({error:'internal server error', msg:error.message});
+        res.status(500).send({error:'internal server error', msg:error.message});
     }
 }
 

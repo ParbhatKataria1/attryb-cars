@@ -15,7 +15,7 @@ export function ParamContextProvider({
 
   let param: any = {};
   param.pagevalue = params.get("pagevalue") || 1;
-  param.limit = params.get("limit") || 8;
+  param.limit = params.get("limit") || 6;
   param.min_price = params.get("min_price") || 0;
   param.max_price = params.get("max_price") || 5000000;
   param.min_mileage = params.get("min_mileage") || 0;

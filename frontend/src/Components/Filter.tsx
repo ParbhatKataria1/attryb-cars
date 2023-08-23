@@ -8,7 +8,7 @@ import {
   Input,
   Text,
 } from "@chakra-ui/react";
-import React, { useEffect, useRef, useState } from "react";
+import {  useRef } from "react";
 import RangeFilter from "./RangeFilter";
 
 export interface FilterSchema {
@@ -29,7 +29,6 @@ const Filter = ({
   setmileageRange,
   color,
   setcolor,
-  search, 
   setsearch
 }: FilterSchema) => {
   const ref = useRef<any>();

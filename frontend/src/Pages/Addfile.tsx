@@ -101,9 +101,9 @@ export default function Addfile() {
     setitem((prev) => ({ ...prev, image: temp?.data.secure_url }));
   }
   return (
-    <Box h="90vh" overflowY={"auto"} >
+    <Box  h="90vh" overflowX={'auto'} overflowY={"auto"} >
       <Box w='94%' margin={'auto'} py={'20px'}>
-        <Box>
+        <Box w='100%'>
           <FormControl w="100%" id="image">
             <FormLabel>Image</FormLabel>
             <InputGroup>
@@ -171,7 +171,7 @@ export default function Addfile() {
             </FormControl>
           </Flex>
 
-          <OemModel setitem={setitem} item={item} />
+          <OemModel setitem={setitem} item={item}justvalue={1} />
 
           <Flex
             flexDir={{ base: "column", sm: "row" }}

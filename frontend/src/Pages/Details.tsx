@@ -6,7 +6,7 @@ import { Box, Divider, Flex, Image, Text } from "@chakra-ui/react";
 
 const Details = () => {
   const { _id } = useParams();
-  const [item, setitem] = useState<InventorySchema>();
+  const [item, setitem] = useState<any>();
   const token: string = JSON.parse(
     sessionStorage.getItem("login_cred") || ""
   )?.token;
@@ -21,15 +21,16 @@ const Details = () => {
     fetch();
   }, []);
   return (
-    <Flex h='90vh' w='90%' pt='20px' mx='auto' justifyContent={'space-between'}  overflowY={'auto'}>
-        <Image    w='40%' objectFit={'contain'} src={item?.image} />
+    <Flex flexDir={{base:'column', md:'row'}} h='90vh' p='20px' w='100%' pt='20px' mx='auto' justifyContent={'space-between'}  overflowY={'auto'}>
+        <Image  m='auto'   w={{base:'80%', md:'40%'}} objectFit={'contain'} src={item?.image} />
         <Box
+        m='auto'
           border={"2px solid #eaeaea"}
           textAlign={"left"}
           borderRadius={"10px"}
           fontSize={"21px"}
           p="20px"
-          w='60%'
+          w={{base:'80%', md:'60%'}}
         >
           <Flex
           w='100%'
@@ -118,7 +119,7 @@ const Details = () => {
           >
             <Text>Colors</Text>
             <Flex alignItems={"center"} justifyContent={"space-between"}>
-              {item?.oem[0]?.color.map((col) => {
+              {item?.oem[0]?.color.map((col:string) => {
                 return (
                   <Box
                     display={"inline-flex"}
@@ -215,7 +216,7 @@ const Details = () => {
             
           </Flex>
           <ul style={{fontSize:'17px', marginLeft:'28px'}}>
-              {item?.description?.map((el)=>{
+              {item?.description?.map((el:string)=>{
                 return <li>{el}</li>
               })}
             </ul>

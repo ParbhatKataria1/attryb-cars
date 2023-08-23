@@ -1,4 +1,4 @@
-import { AllDataSchema, InventorySchema } from "../Utils";
+import { AllDataSchema } from "../Utils";
 import {
   Box,
   Button,
@@ -13,12 +13,15 @@ import { ButtonDialog } from "./Alert";
 import axios from "axios";
 import { UpdateModel } from "./UpdateModel";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { ParamContext } from "../Context/SearchParam";
+import { UseAppDispatch } from "../redux/store";
+import { fetch_data } from "../redux/data/action";
 
-interface temp{page:number, setpage:(value:number)=>void}
-type DataSchema = AllDataSchema & temp;
-const Data = (
-  { data, length, userId, page, setpage }: DataSchema
-) => {
+const Data = ({ data, length, userId, }: AllDataSchema) => {
+  const { priceRange, mileageRange, pagevalue, color, search, setpage, setparams } =
+    useContext<any>(ParamContext);
+  const dispatch = UseAppDispatch();
   const Toast = useToast();
   const token: string =
     JSON.parse(sessionStorage.getItem("login_cred") || "").token || "";
@@ -29,6 +32,20 @@ const Data = (
         {
           headers: { Authorization: token },
         }
+      );
+      dispatch(
+        fetch_data(
+          {
+            page: pagevalue,
+            color,
+            min_price: priceRange[0],
+            max_price: priceRange[1],
+            min_mileage: mileageRange[0],
+            max_mileage: mileageRange[1],
+            search,
+          },
+          token
+        )
       );
       Toast({
         title: "Success",
@@ -47,37 +64,51 @@ const Data = (
       });
     }
   };
+
+  const changePage = (value:number)=>{
+    setpage(value);
+    let obj = {page: value,
+      color,
+      min_price: priceRange[0],
+      max_price: priceRange[1],
+      min_mileage: mileageRange[0],
+      max_mileage: mileageRange[1],
+      search}
+      setparams(obj)
+    dispatch(
+      fetch_data(
+        obj,
+        token
+      )
+    );
+  }
   return (
-    <Box w='100%' overflowY={'auto'}>
-      <Grid mx="auto" gridTemplateColumns={"repeat(3, 1fr)"} gap={5}>
-        {data?.map((el: InventorySchema) => {
+    <Box w="100%" overflowY={"auto"}>
+      <Grid p='10px' mx="auto" gridTemplateColumns={{base:"repeat(1, 1fr)",md:"repeat(2, 1fr)", lg: "repeat(3, 1fr)"}} gap={5}>
+        {data?.map((el: any) => {
           return (
             <Box
               key={el._id}
               display={"flex"}
               flexDir={{ base: "column", sm: "row" }}
               mx="auto"
-              mt='20px'
-              w="350px"
+              mt="20px"
               overflow="hidden"
               border={"2px solid #efefef"}
-              borderRadius={'10px'}
+              borderRadius={"10px"}
+              w={'100%'}
             >
               <Box w="100%" display={"flex"} flexDir={"column"}>
                 <Image
                   display={"inline-block"}
                   mx="auto"
                   borderBottom={"1px solid lightgray"}
-                  w='100%'
+                  w="100%"
                   src={el.image}
                   alt={el.title}
                   h="200px"
                 />
-                <Flex
-                  p="10px"
-                  flexDir={"column"}
-                  w="100%"
-                >
+                <Flex p="10px" flexDir={"column"} w="100%">
                   <Box>
                     <Heading size="md">{el?.oem[0]?.model}</Heading>
 
@@ -93,7 +124,7 @@ const Data = (
                             h="20px"
                             ml="10px"
                             borderRadius={"50%"}
-                            bg={el+""}
+                            bg={el + ""}
                           ></Box>
                         );
                       })}
@@ -115,7 +146,7 @@ const Data = (
                       ""
                     )}
                     <Link to={`/details/${el._id}`}>
-                      <Button>More Details</Button>
+                      <Button size='sm'>More Details</Button>
                     </Link>
                   </Flex>
                 </Flex>
@@ -125,7 +156,7 @@ const Data = (
         })}
       </Grid>
 
-      <Box mt='20px'>
+      <Box mt="20px">
         <Flex
           alignItems={"center"}
           w={"98%"}
@@ -134,24 +165,19 @@ const Data = (
         >
           {
             <Button
-              isDisabled={page != 1 ? false : true}
-              onClick={() =>
-                setpage(page-1)
-              }
+              isDisabled={pagevalue != 1 ? false : true}
+              onClick={() => changePage(+pagevalue - 1)}
             >
               Prev
             </Button>
           }
 
-
-          <Button m="9px">{page}</Button>
+          <Button m="9px">{pagevalue}</Button>
 
           {
             <Button
-              isDisabled={page != Math.ceil(+length / 8) ? false : true}
-              onClick={() =>
-                setpage(page+1)
-              }
+              isDisabled={pagevalue != Math.ceil(+length / 8) ? false : true}
+              onClick={() => changePage(+pagevalue + 1)}
             >
               Next
             </Button>

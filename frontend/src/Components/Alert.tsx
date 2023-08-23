@@ -15,7 +15,7 @@ export function ButtonDialog({title, _id, setdelete, heading, description}:Alert
     
     return (
       <>
-        <Button colorScheme='red' onClick={ onOpen}>
+        <Button size='sm' colorScheme='red' onClick={ onOpen}>
           {title}
         </Button>
   

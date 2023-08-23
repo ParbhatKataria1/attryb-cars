@@ -20,6 +20,8 @@ const Navbar = () => {
           transform={"scale(1.43)"}
           justifyContent={"center"}
           alignItems={"center"}
+          cursor={'pointer'}
+          onClick={()=>{navigate('/')}}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -23,7 +23,7 @@ import {
 } from "@chakra-ui/react";
 import { useState, useRef, useContext } from "react";
 import { InventorySchema } from "../Utils";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import DescriptionBox from "./Description";
 import OemModel from "./OemModel";
 import { UseAppDispatch } from "../redux/store";
@@ -121,7 +121,7 @@ export function UpdateModel(props: InventorySchema) {
   }
   return (
     <>
-      <Button onClick={onOpen}>Edit</Button>
+      <Button size='sm' onClick={onOpen}>Edit</Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
