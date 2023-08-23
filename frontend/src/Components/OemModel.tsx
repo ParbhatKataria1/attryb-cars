@@ -22,6 +22,7 @@ import axios, { AxiosResponse } from "axios";
 interface OemModelSchema {
   setitem: (obj: InventorySchema) => void;
   item: InventorySchema;
+  
 }
 
 const OemModel = ({ setitem, item }: OemModelSchema) => {
@@ -62,16 +63,10 @@ const OemModel = ({ setitem, item }: OemModelSchema) => {
         </Flex>
       </FormControl>
       <Box>
-        <Grid
-          mt="10px"
-          templateColumns={{
-            base: "repeat(1, 1fr)",
-            sm: "repeat(2, 1fr)",
-          }}
-          gap={1}
-        >
           <Box
-            w="390px"
+            w="100%"
+            mt='20px'
+            border={'1px solid lightgray'}
             overflowX={"auto"}
             textAlign={"left"}
             borderRadius={"10px"}
@@ -177,7 +172,6 @@ const OemModel = ({ setitem, item }: OemModelSchema) => {
               </svg>
             </Flex>
           </Box>
-        </Grid>
       </Box>
     </>
   );

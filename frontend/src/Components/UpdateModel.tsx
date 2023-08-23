@@ -21,13 +21,20 @@ import {
   Button,
   Box,
 } from "@chakra-ui/react";
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import { InventorySchema } from "../Utils";
 import axios, { AxiosResponse } from "axios";
 import DescriptionBox from "./Description";
 import OemModel from "./OemModel";
+import { UseAppDispatch } from "../redux/store";
+import { fetch_data } from "../redux/data/action";
+import { ParamContext } from "../Context/SearchParam";
 
 export function UpdateModel(props: InventorySchema) {
+  const { priceRange, mileageRange, pagevalue, color, search } =
+    useContext<any>(ParamContext);
+  const dispatch = UseAppDispatch();
+
   const token: string = JSON.parse(
     sessionStorage.getItem("login_cred") || ""
   )?.token;
@@ -40,6 +47,7 @@ export function UpdateModel(props: InventorySchema) {
 
   function change(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     let name: string = e.target.getAttribute("id") || "";
+
     let value: string | number = "";
     if (isNaN(+e.target.value)) {
       value = e.target.value;
@@ -60,9 +68,23 @@ export function UpdateModel(props: InventorySchema) {
       setloading(true);
       console.log(item);
       await axios.patch(
-        `http://localhost:4500/inventory?_id=${item._id}&user=${props.userId}`,
+        `http://localhost:4500/inventory?_id=${item._id}&user=${props.user}`,
         { ...item },
         { headers: { Authorization: token } }
+      );
+      dispatch(
+        fetch_data(
+          {
+            page: pagevalue,
+            color,
+            min_price: priceRange[0],
+            max_price: priceRange[1],
+            min_mileage: mileageRange[0],
+            max_mileage: mileageRange[1],
+            search,
+          },
+          token
+        )
       );
       setloading(false);
       toast({
@@ -99,9 +121,7 @@ export function UpdateModel(props: InventorySchema) {
   }
   return (
     <>
-      <Button  onClick={onOpen}>
-        Edit
-      </Button>
+      <Button onClick={onOpen}>Edit</Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

@@ -13,7 +13,6 @@ import { ButtonDialog } from "./Alert";
 import axios from "axios";
 import { UpdateModel } from "./UpdateModel";
 import { Link } from "react-router-dom";
-import Filter from "./Filter";
 
 interface temp{page:number, setpage:(value:number)=>void}
 type DataSchema = AllDataSchema & temp;
@@ -49,7 +48,7 @@ const Data = (
     }
   };
   return (
-    <Box >
+    <Box w='100%' overflowY={'auto'}>
       <Grid mx="auto" gridTemplateColumns={"repeat(3, 1fr)"} gap={5}>
         {data?.map((el: InventorySchema) => {
           return (
@@ -58,16 +57,18 @@ const Data = (
               display={"flex"}
               flexDir={{ base: "column", sm: "row" }}
               mx="auto"
+              mt='20px'
               w="350px"
               overflow="hidden"
-              border={"2px solid gray"}
+              border={"2px solid #efefef"}
+              borderRadius={'10px'}
             >
               <Box w="100%" display={"flex"} flexDir={"column"}>
                 <Image
                   display={"inline-block"}
                   mx="auto"
-                  border={"2px solid green"}
-                  maxW={{ base: "100%", sm: "200px" }}
+                  borderBottom={"1px solid lightgray"}
+                  w='100%'
                   src={el.image}
                   alt={el.title}
                   h="200px"
@@ -76,13 +77,12 @@ const Data = (
                   p="10px"
                   flexDir={"column"}
                   w="100%"
-                  border={"2px solid red"}
                 >
                   <Box>
                     <Heading size="md">{el?.oem[0]?.model}</Heading>
 
                     <Text py="2">Price : {el?.oem[0]?.price + ""}</Text>
-                    <Text py="2">
+                    <Box py="2">
                       color :{" "}
                       {el?.oem[0]?.color?.map((el: String, ind: number) => {
                         return (
@@ -93,11 +93,11 @@ const Data = (
                             h="20px"
                             ml="10px"
                             borderRadius={"50%"}
-                            bg={el}
+                            bg={el+""}
                           ></Box>
                         );
                       })}
-                    </Text>
+                    </Box>
                     <Text py="2">Mileage : {el?.oem[0]?.mileage + ""}</Text>
                   </Box>
 
@@ -125,7 +125,7 @@ const Data = (
         })}
       </Grid>
 
-      <Box>
+      <Box mt='20px'>
         <Flex
           alignItems={"center"}
           w={"98%"}

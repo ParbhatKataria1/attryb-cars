@@ -21,16 +21,18 @@ const Details = () => {
     fetch();
   }, []);
   return (
-    <Box h='100vh' >
-        <Image w='400px' objectFit={'contain'} src={item?.image} />
+    <Flex h='90vh' w='90%' pt='20px' mx='auto' justifyContent={'space-between'}  overflowY={'auto'}>
+        <Image    w='40%' objectFit={'contain'} src={item?.image} />
         <Box
           border={"2px solid #eaeaea"}
           textAlign={"left"}
           borderRadius={"10px"}
           fontSize={"21px"}
           p="20px"
+          w='60%'
         >
           <Flex
+          w='100%'
             fontSize={"19px"}
             justifyContent={"space-between"}
             alignItems={"center"}
@@ -203,8 +205,22 @@ const Details = () => {
                 : "Not Mentioned"}
             </Text>
           </Flex>
+          <Flex
+            justifyContent={"space-between"}
+            alignItems={"center"}
+            fontSize={"17px"}
+            mt='20px'
+          >
+            <Text>Description</Text>
+            
+          </Flex>
+          <ul style={{fontSize:'17px', marginLeft:'28px'}}>
+              {item?.description?.map((el)=>{
+                return <li>{el}</li>
+              })}
+            </ul>
         </Box>
-    </Box>
+    </Flex>
   );
 };
 

@@ -61,8 +61,7 @@ export default function Sign() {
 
   return (
     <Flex
-      minH={"100vh"}
-      w="100vw"
+    h={'91vh'}
       align={"center"}
       justify={"center"}
       bg={useColorModeValue("gray.50", "gray.800")}

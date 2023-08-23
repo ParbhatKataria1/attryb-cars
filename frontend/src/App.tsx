@@ -1,14 +1,14 @@
-
-import Navbar from './Components/Navbar'
-import PublicRoutes from './Components/PublicRoutes'
+import { Box } from "@chakra-ui/react";
+import Navbar from "./Components/Navbar";
+import PublicRoutes from "./Components/PublicRoutes";
 
 function App() {
   return (
-   <>
-   <Navbar/>
-   <PublicRoutes/>
-   </>
-  )
+    <Box>
+        <Navbar/>
+        <PublicRoutes />
+      </Box>
+  );
 }
 
-export default App
+export default App;

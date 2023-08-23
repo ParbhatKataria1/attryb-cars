@@ -103,3 +103,32 @@ export interface LoginCredSchema{
     token:String, 
     email:String
 }
+
+
+
+export interface ParamSchema {
+    page: number;
+    color: string[];
+    min_price: number;
+    max_price: number;
+    min_mileage: number;
+    max_mileage: number;
+    sortvalue: number;
+    search: string;
+  }
+  
+  export interface AllParamSchema {
+    param: ParamSchema;
+    setparams:(value:any)=>void;
+    params:any;
+    priceRange:number[];
+    setpriceRange:(value:any)=>void;
+    mileageRange:number[];
+    setmileageRange:(value:any)=>void;
+    pagevalue:number;
+    setpage:(value:any)=>void;
+    color:string[];
+    setcolor:(value:any)=>void;
+    search:string;
+    setsearch:(value:any)=>void;
+  }

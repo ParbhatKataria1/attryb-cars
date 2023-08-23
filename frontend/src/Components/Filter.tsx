@@ -35,16 +35,14 @@ const Filter = ({
   const ref = useRef<any>();
   return (
     <Flex
-      w="300px"
-      border={"2px solid blue"}
-      p="10px"
+      w="350px"
       justifyContent={"center"}
     >
-      <Box border={"2px solid blue"}>
-        <Box display={"flex"} justifyContent={"space-between"}>
+      <Box p='20px' >
+        <Flex display={"flex"} w='100%' justifyContent={"space-between"}>
           <Input ref={ref}  type="text" />
           <Button onClick={()=>{setsearch(ref.current.value)}}>Search</Button>
-        </Box>
+        </Flex>
         <RangeFilter
           title={"Price"}
           max={100000}
