@@ -8,4 +8,5 @@ const UserSchema = mongoose.Schema({
 }, {versionKey:false});
 
 const UserModel = mongoose.model('user', UserSchema);
+UserSchema.index({ email: 1 });
 module.exports = {UserModel}

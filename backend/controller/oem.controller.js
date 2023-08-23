@@ -5,7 +5,7 @@ const get_oem = async (req, res)=>{
         const data = await OemModel.find();
         res.status(200).send({data});
     } catch (error) {
-        res.status(500).send({error:'internal server error', msg:error.message})
+        res.status(500).send({error:'internal server error', msg:error?.message})
     }
 }
 
@@ -15,7 +15,7 @@ const post_oem = async(req, res)=>{
         const temp = await OemModel.insertMany(data);
         res.status(200).send({msg:'data is stored'});
     } catch (error) {
-        res.status(500).send({error:'internal server error', msg:error.message})
+        res.status(500).send({error:'internal server error', msg:error?.message})
     }
 }
 

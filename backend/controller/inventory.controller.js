@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 
 const get_inventory = async(req, res)=>{
     try {
-        let {page = 1, limit = 8, color = 0, min_price = 0, max_price = Infinity, min_mileage = 0, max_mileage = Infinity,  search = ""} = req.query;
+        let {page = 1, limit = 8, color = 0, min_price = 0, max_price = Infinity, min_mileage = 0, max_mileage = Infinity,  search = ""} = req?.query;
         search =  new RegExp(search, 'i');
         const params = {page, limit, color, min_price, max_price,min_mileage , max_mileage,  search};
         const length = await InventoryModel.count();
@@ -17,7 +17,7 @@ const get_inventory = async(req, res)=>{
 
 
     } catch (error) {
-        res.status(500).send({error:'internal server error', msg:error.message});
+        res.status(500).send({error:'internal server error', msg:error?.message});
     }
 }
 const get_inventory_one = async(req, res)=>{
@@ -28,7 +28,7 @@ const get_inventory_one = async(req, res)=>{
         },{$match:{_id:new mongoose.Types.ObjectId(id._id)}}]);
         res.status(200).send({data:data[0], userId:req?.user?._id});
     } catch (error) {
-        res.status(500).send({error:'internal server error', msg:error.message});
+        res.status(500).send({error:'internal server error', msg:error?.message});
     }
 }
 const post_inventory = async(req, res)=>{
@@ -38,11 +38,11 @@ const post_inventory = async(req, res)=>{
             return res.status(400).send({error:'please provide all the details'})
         }
         req.body.user = req?.user?._id;
-        const data = new InventoryModel(req.body);
+        const data = new InventoryModel(req?.body);
         await data.save();
         res.status(200).send('data is saved')
     } catch (error) {
-        res.status(500).send({error:'internal server error', msg:error.message});
+        res.status(500).send({error:'internal server error', msg:error?.message});
     }
 }
 
@@ -57,16 +57,16 @@ const update_inventory = async(req, res)=>{
         if(user !=req.user?._id){
             return res.status(403).send({error:'you are not authorized to update the post'});
         }
-        await InventoryModel.findByIdAndUpdate({_id}, req.body);
+        await InventoryModel.findByIdAndUpdate({_id}, req?.body);
         res.status(200).send({msg:'data is updated'});
     } catch (error) {
-        res.status(500).send({error:'internal server error', msg:error.message});
+        res.status(500).send({error:'internal server error', msg:error?.message});
     }
 }
 
 const delete_inventory = async(req, res)=>{
     try {
-        const {_id , user} = req.query;
+        const {_id , user} = req?.query;
         if(!_id || !user){
             return res.status(400).send({error:'Please provide the necessary data'});
         }
@@ -76,7 +76,7 @@ const delete_inventory = async(req, res)=>{
         await InventoryModel.findByIdAndDelete({_id});
         res.status(200).send({msg:'data is deleted'});
     } catch (error) {
-        res.status(500).send({error:'internal server error', msg:error.message});
+        res.status(500).send({error:'internal server error', msg:error?.message});
     }
 }
 

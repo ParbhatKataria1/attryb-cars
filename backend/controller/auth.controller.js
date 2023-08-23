@@ -19,17 +19,17 @@ const sign_controller = async (req, res)=>{
                 res.status(201).send({msg:'Account is created'})
             }
             else {
-                res.send(500).send({error:'internal server error', msg:error.message});
+                res.send(500).send({error:'internal server error', msg:error?.message});
             }
         })
     } catch (error) {
-        res.send(500).send({error:'internal server error', msg:error.message});
+        res.send(500).send({error:'internal server error', msg:error?.message});
     }
 }
 
 const login_controller = async(req, res)=>{
     try {
-        const {email = "", password = ""} = req.body;
+        const {email = "", password = ""} = req?.body;
         if(!email || !password){
             return res.status(400).send({error:'Please provide necessary credentials'})
         }
@@ -43,11 +43,11 @@ const login_controller = async(req, res)=>{
                 const temp = jwt.sign({username, email, _id}, 'masai', {expiresIn:'1d'})
                 res.status(200).send({token:`Bearer ${temp}`})
             }else {
-                res.status(401).send({error:'credentials provided are not correct', msg:error.message})
+                res.status(401).send({error:'credentials provided are not correct', msg:error?.message})
             }
         })
     } catch (error) {
-        res.status(500).send({error:'internal server error', msg:error.message});
+        res.status(500).send({error:'internal server error', msg:error?.message});
     }
 }
 
