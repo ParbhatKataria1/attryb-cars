@@ -1,15 +1,21 @@
 const { aggregation } = require("../aggregation");
 const { InventoryModel } = require("../model/inventory.model");
 const { OemModel } = require("../model/oem.model");
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+
+
 
 const get_inventory = async(req, res)=>{
     try {
-        let {page = 1, limit = 8, color = 0, min_price = 0, max_price = Infinity, min_mileage = 0, max_mileage = Infinity, sortvalue = 1, search = ""} = req.query;
+        let {page = 1, limit = 8, color = 0, min_price = 0, max_price = Infinity, min_mileage = 0, max_mileage = Infinity,  search = ""} = req.query;
         search =  new RegExp(search, 'i');
+        const params = {page, limit, color, min_price, max_price,min_mileage , max_mileage,  search};
         const length = await InventoryModel.count();
-        const data = await InventoryModel.aggregate(aggregation({page, limit, max_mileage, min_mileage, max_price, min_price, sortvalue, color, search}));
-        res.status(200).send({data, length, userId:req?.user?._id});
+        const data = await InventoryModel.aggregate(aggregation({page, limit, max_mileage, min_mileage, max_price, min_price, color, search}));
+        const obj = {data, length, userId:req?.user?._id};
+        res.status(200).send(obj);
+
+
     } catch (error) {
         res.status(500).send({error:'internal server error', msg:error.message});
     }

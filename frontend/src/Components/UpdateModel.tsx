@@ -68,7 +68,7 @@ export function UpdateModel(props: InventorySchema) {
       setloading(true);
       console.log(item);
       await axios.patch(
-        `http://localhost:4500/inventory?_id=${item._id}&user=${props.user}`,
+        `https://attryb-cars.onrender.com/inventory?_id=${item._id}&user=${props.user}`,
         { ...item },
         { headers: { Authorization: token } }
       );
@@ -121,7 +121,9 @@ export function UpdateModel(props: InventorySchema) {
   }
   return (
     <>
-      <Button size='sm' onClick={onOpen}>Edit</Button>
+      <Button size="sm" onClick={onOpen}>
+        Edit
+      </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

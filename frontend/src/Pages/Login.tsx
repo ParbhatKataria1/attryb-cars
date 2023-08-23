@@ -35,7 +35,7 @@ export default function Login() {
     try {
       setloading(true);
       const data: AxiosResponse<{ token: string }> = await axios.post(
-        "http://localhost:4500/auth/login",
+        `https://attryb-cars.onrender.com/auth/login`,
         {
           ...form,
         }
@@ -66,52 +66,52 @@ export default function Login() {
   }
 
   return (
-      <Flex
-        border={'2px solid blue'}
-        h={'91vh'}
-        align={"center"}
-        justify={"center"}
-        bg={useColorModeValue("gray.50", "gray.800")}
-      >
-        <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
-          <Stack align={"center"}>
-            <Heading fontSize={"4xl"}>Login to your account</Heading>
-            {loading ? <Spin /> : ""}
-          </Stack>
-          <Box
-            rounded={"lg"}
-            bg={useColorModeValue("white", "gray.700")}
-            boxShadow={"lg"}
-            p={8}
-          >
-            <Stack spacing={4}>
-              <FormControl id="email">
-                <FormLabel>Email address</FormLabel>
-                <Input onChange={handleChange} id="email" type="email" />
-              </FormControl>
-              <FormControl id="password">
-                <FormLabel>Password</FormLabel>
-                <Input onChange={handleChange} id="password" type="password" />
-              </FormControl>
-              <Stack spacing={10}>
-                <Button
-                  onClick={handleSubmit}
-                  bg={"blue.400"}
-                  color={"white"}
-                  _hover={{
-                    bg: "blue.500",
-                  }}
-                >
-                  Login
-                </Button>
-
-                <Link style={{ textAlign: "center" }} to="/signup">
-                  or SignUp
-                </Link>
-              </Stack>
-            </Stack>
-          </Box>
+    <Flex
+      border={"2px solid blue"}
+      h={"91vh"}
+      align={"center"}
+      justify={"center"}
+      bg={useColorModeValue("gray.50", "gray.800")}
+    >
+      <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+        <Stack align={"center"}>
+          <Heading fontSize={"4xl"}>Login to your account</Heading>
+          {loading ? <Spin /> : ""}
         </Stack>
-      </Flex>
+        <Box
+          rounded={"lg"}
+          bg={useColorModeValue("white", "gray.700")}
+          boxShadow={"lg"}
+          p={8}
+        >
+          <Stack spacing={4}>
+            <FormControl id="email">
+              <FormLabel>Email address</FormLabel>
+              <Input onChange={handleChange} id="email" type="email" />
+            </FormControl>
+            <FormControl id="password">
+              <FormLabel>Password</FormLabel>
+              <Input onChange={handleChange} id="password" type="password" />
+            </FormControl>
+            <Stack spacing={10}>
+              <Button
+                onClick={handleSubmit}
+                bg={"blue.400"}
+                color={"white"}
+                _hover={{
+                  bg: "blue.500",
+                }}
+              >
+                Login
+              </Button>
+
+              <Link style={{ textAlign: "center" }} to="/signup">
+                or SignUp
+              </Link>
+            </Stack>
+          </Stack>
+        </Box>
+      </Stack>
+    </Flex>
   );
 }

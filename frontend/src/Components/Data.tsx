@@ -18,9 +18,16 @@ import { ParamContext } from "../Context/SearchParam";
 import { UseAppDispatch } from "../redux/store";
 import { fetch_data } from "../redux/data/action";
 
-const Data = ({ data, length, userId, }: AllDataSchema) => {
-  const { priceRange, mileageRange, pagevalue, color, search, setpage, setparams } =
-    useContext<any>(ParamContext);
+const Data = ({ data, length, userId }: AllDataSchema) => {
+  const {
+    priceRange,
+    mileageRange,
+    pagevalue,
+    color,
+    search,
+    setpage,
+    setparams,
+  } = useContext<any>(ParamContext);
   const dispatch = UseAppDispatch();
   const Toast = useToast();
   const token: string =
@@ -28,7 +35,7 @@ const Data = ({ data, length, userId, }: AllDataSchema) => {
   const setdelete: (_id: string) => void = async (_id) => {
     try {
       await axios.delete(
-        `http://localhost:4500/inventory?_id=${_id}&user=${userId}`,
+        `https://attryb-cars.onrender.com/inventory?_id=${_id}&user=${userId}`,
         {
           headers: { Authorization: token },
         }
@@ -65,26 +72,32 @@ const Data = ({ data, length, userId, }: AllDataSchema) => {
     }
   };
 
-  const changePage = (value:number)=>{
+  const changePage = (value: number) => {
     setpage(value);
-    let obj = {page: value,
+    let obj = {
+      page: value,
       color,
       min_price: priceRange[0],
       max_price: priceRange[1],
       min_mileage: mileageRange[0],
       max_mileage: mileageRange[1],
-      search}
-      setparams(obj)
-    dispatch(
-      fetch_data(
-        obj,
-        token
-      )
-    );
-  }
+      search,
+    };
+    setparams(obj);
+    dispatch(fetch_data(obj, token));
+  };
   return (
     <Box w="100%" overflowY={"auto"}>
-      <Grid p='10px' mx="auto" gridTemplateColumns={{base:"repeat(1, 1fr)",md:"repeat(2, 1fr)", lg: "repeat(3, 1fr)"}} gap={5}>
+      <Grid
+        p="10px"
+        mx="auto"
+        gridTemplateColumns={{
+          base: "repeat(1, 1fr)",
+          md: "repeat(2, 1fr)",
+          lg: "repeat(3, 1fr)",
+        }}
+        gap={5}
+      >
         {data?.map((el: any) => {
           return (
             <Box
@@ -96,7 +109,7 @@ const Data = ({ data, length, userId, }: AllDataSchema) => {
               overflow="hidden"
               border={"2px solid #efefef"}
               borderRadius={"10px"}
-              w={'100%'}
+              w={"100%"}
             >
               <Box w="100%" display={"flex"} flexDir={"column"}>
                 <Image
@@ -146,7 +159,7 @@ const Data = ({ data, length, userId, }: AllDataSchema) => {
                       ""
                     )}
                     <Link to={`/details/${el._id}`}>
-                      <Button size='sm'>More Details</Button>
+                      <Button size="sm">More Details</Button>
                     </Link>
                   </Flex>
                 </Flex>

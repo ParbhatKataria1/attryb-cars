@@ -16,7 +16,6 @@ app.use(auth_middleware);
 app.use('/oem', oem);
 app.use('/inventory', inventory);
 
-
 app.listen(process.env.port, async()=>{
     try {
         await connection;

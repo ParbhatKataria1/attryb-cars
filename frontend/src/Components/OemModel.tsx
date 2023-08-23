@@ -32,7 +32,7 @@ const OemModel = ({ setitem, item, justvalue }: OemModelSchema) => {
   const [oemdata, set_oemdata] = useState<OemSchema[]>([]);
   async function fetch_oem() {
     let data: AxiosResponse<{ data: OemSchema[] }> = await axios.get(
-      "http://localhost:4500/oem",
+      `https://attryb-cars.onrender.com/oem`,
       { headers: { Authorization: token } }
     );
     set_oemdata(data.data.data);
@@ -155,7 +155,6 @@ const OemModel = ({ setitem, item, justvalue }: OemModelSchema) => {
             <Text fontSize={"17px"} fontWeight={"semibold"} mr="10px">
               Swipe Right
             </Text>
-            
           </Flex>
         </Box>
       </Box>
