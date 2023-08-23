@@ -1,6 +1,6 @@
 import axios, {AxiosResponse} from "axios";
 import { DATA, DATAERROR, DATALOADING } from "./actionType";
-import { AllDataSchema, FetchParamSchema, InventorySchema, ItemDataSchema, ItemErrorSchema, ItemLoadingSchema } from "../../Utils";
+import { AllDataSchema,  ItemDataSchema, ItemErrorSchema, ItemLoadingSchema } from "../../Utils";
 import { AppDispatch } from "../store";
 
 export function create_loading():ItemLoadingSchema{

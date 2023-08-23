@@ -1,6 +1,4 @@
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
-import React from "react";
-import { gear } from "../svg";
 import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {

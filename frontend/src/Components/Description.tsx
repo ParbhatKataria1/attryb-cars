@@ -1,5 +1,4 @@
 import { Box, Flex } from "@chakra-ui/react";
-import React from "react";
 import { InventorySchema } from "../Utils";
 
 interface DescriptionBox{
@@ -11,10 +10,11 @@ const DescriptionBox = ({item, setitem}:DescriptionBox) => {
     function deleteItem(i:number) {
         let obj = { ...item };
         let arr = obj.description.filter((el, ind:number) => {
+          el = el;
           return ind != i;
         });
         obj.description = arr;
-        setitem(obj);
+        setitem(obj);cd 
       }
   return (
     <Box

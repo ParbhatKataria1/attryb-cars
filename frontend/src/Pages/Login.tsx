@@ -67,7 +67,6 @@ export default function Login() {
 
   return (
     <Flex
-      border={"2px solid blue"}
       h={"91vh"}
       align={"center"}
       justify={"center"}
