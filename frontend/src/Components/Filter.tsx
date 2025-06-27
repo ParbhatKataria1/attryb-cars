@@ -54,7 +54,7 @@ const Filter = ({ priceRange, setpriceRange, mileageRange, setmileageRange, colo
                         Select Color
                     </Text>
                     <CheckboxGroup colorScheme="gray" onChange={setcolor}>
-                        <Checkbox value="Yellow">Yellow</Checkbox>
+                        <Checkbox checked={color.includes("Orange")}  value="Orange">Orange</Checkbox>
                         <Checkbox checked={color.includes("Red")} value="Red">
                             Red
                         </Checkbox>
@@ -72,6 +72,9 @@ const Filter = ({ priceRange, setpriceRange, mileageRange, setmileageRange, colo
                         </Checkbox>
                         <Checkbox checked={color.includes("White")} value="White">
                             White
+                        </Checkbox>
+                        <Checkbox checked={color.includes("Green")} value="Green">
+                            Green
                         </Checkbox>
                     </CheckboxGroup>
                 </Box>
