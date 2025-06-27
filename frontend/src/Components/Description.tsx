@@ -14,7 +14,7 @@ const DescriptionBox = ({item, setitem}:DescriptionBox) => {
           return ind != i;
         });
         obj.description = arr;
-        setitem(obj);cd 
+        setitem(obj); 
       }
   return (
     <Box
