@@ -20,6 +20,7 @@ const init: LoginSchema = {
   email: "",
   password: "",
 };
+const apiUrlBack = import.meta.env.VITE_BACKEND_URL;
 
 export default function Login() {
   const Toast = useToast();
@@ -35,7 +36,7 @@ export default function Login() {
     try {
       setloading(true);
       const data: AxiosResponse<{ token: string }> = await axios.post(
-        `https://attryb-cars.onrender.com/auth/login`,
+        `${apiUrlBack}/auth/login`,
         {
           ...form,
         }

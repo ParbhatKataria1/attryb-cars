@@ -29,6 +29,8 @@ import OemModel from "./OemModel";
 import { UseAppDispatch } from "../redux/store";
 import { fetch_data } from "../redux/data/action";
 import { ParamContext } from "../Context/SearchParam";
+const apiUrlBack = import.meta.env.VITE_BACKEND_URL;
+
 
 export function UpdateModel(props: InventorySchema) {
   const { priceRange, mileageRange, pagevalue, color, search } =
@@ -68,7 +70,7 @@ export function UpdateModel(props: InventorySchema) {
       setloading(true);
       console.log(item);
       await axios.patch(
-        `https://attryb-cars.onrender.com/inventory?_id=${item._id}&user=${props.user}`,
+        `${apiUrlBack}/inventory?_id=${item._id}&user=${props.user}`,
         { ...item },
         { headers: { Authorization: token } }
       );
@@ -134,7 +136,7 @@ export function UpdateModel(props: InventorySchema) {
             <FormControl w="100%" id="image">
               <FormLabel>Image</FormLabel>
               <InputGroup>
-                <InputLeftAddon children="https://" />
+                <InputLeftAddon children="URL" />
                 <Input
                   colorScheme="teal"
                   value={item.image}

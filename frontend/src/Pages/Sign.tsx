@@ -22,6 +22,8 @@ const init: SigninSchema = {
   username: "",
 };
 
+const apiUrlBack = import.meta.env.VITE_BACKEND_URL;
+
 export default function Sign() {
   const Toast = useToast();
   const navigate = useNavigate();
@@ -35,7 +37,7 @@ export default function Sign() {
   async function handleSubmit() {
     try {
       setloading(true);
-      await axios.post(`https://attryb-cars.onrender.com/auth/signup`, { ...form });
+      await axios.post(`${apiUrlBack}/auth/signup`, { ...form });
       setloading(false);
       Toast({
         title: "Success",

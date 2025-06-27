@@ -32,6 +32,8 @@ const init: AddItemSchema = {
   user: "",
   oem_spec: "",
 };
+const apiUrlBack = import.meta.env.VITE_BACKEND_URL;
+
 export default function Addfile() {
   const token: string = JSON.parse(
     sessionStorage.getItem("login_cred") || ""
@@ -63,7 +65,7 @@ export default function Addfile() {
     try {
       setloading(true);
       await axios.post(
-        `https://attryb-cars.onrender.com/inventory`,
+        `${apiUrlBack}/inventory`,
         { ...item },
         { headers: { Authorization: token } }
       );

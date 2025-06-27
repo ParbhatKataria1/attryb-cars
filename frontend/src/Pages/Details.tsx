@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { InventorySchema } from "../Utils";
 import axios, { AxiosResponse } from "axios";
 import { Box, Divider, Flex, Image, Text } from "@chakra-ui/react";
+const apiUrlBack = import.meta.env.VITE_BACKEND_URL;
 
 const Details = () => {
   const { _id } = useParams();
@@ -12,7 +13,7 @@ const Details = () => {
   )?.token;
   async function fetch() {
     const temp: AxiosResponse<{ data: InventorySchema }> = await axios.get(
-      `https://attryb-cars.onrender.com/inventory/${_id}`,
+      `${apiUrlBack}/inventory/${_id}`,
       { headers: { Authorization: token } }
     );
     setitem(temp?.data?.data);

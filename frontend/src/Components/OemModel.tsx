@@ -22,6 +22,7 @@ interface OemModelSchema {
   item: InventorySchema;
   justvalue?: number;
 }
+const apiUrlBack = import.meta.env.VITE_BACKEND_URL;
 
 const OemModel = ({ setitem, item, justvalue }: OemModelSchema) => {
   const token: string = JSON.parse(
@@ -32,7 +33,7 @@ const OemModel = ({ setitem, item, justvalue }: OemModelSchema) => {
   const [oemdata, set_oemdata] = useState<OemSchema[]>([]);
   async function fetch_oem() {
     let data: AxiosResponse<{ data: OemSchema[] }> = await axios.get(
-      `https://attryb-cars.onrender.com/oem`,
+      `${apiUrlBack}/oem`,
       { headers: { Authorization: token } }
     );
     set_oemdata(data.data.data);
